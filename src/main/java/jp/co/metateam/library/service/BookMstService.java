@@ -25,23 +25,18 @@ public class BookMstService {
         this.bookMstRepository = bookMstRepository;
     }
 
-    // 一覧表示
     public List<BookMstDto> findAvailableWithStockCount() {
-
         List<BookMst> books = this.bookMstRepository.findLimitedBook();
-
         List<BookMstDto> bookMstDtoList = new ArrayList<>();
 
+        // 書籍の在庫数を取得
+        // FIXME: 現状は書籍ID毎にDBに問い合わせている。一度のSQLで完了させたい。
         for (int i = 0; i < books.size(); i++) {
-
             BookMst book = books.get(i);
-
             BookMstDto dto = new BookMstDto();
-
             dto.setId(book.getId());
             dto.setIsbn(book.getIsbn());
             dto.setTitle(book.getTitle());
-
             bookMstDtoList.add(dto);
         }
 
@@ -56,12 +51,9 @@ public class BookMstService {
     // 保存処理
     @Transactional
     public void save(BookMstDto bookMstDto) {
-
         BookMst book = new BookMst();
-
         book.setIsbn(bookMstDto.getIsbn());
         book.setTitle(bookMstDto.getTitle());
-
         this.bookMstRepository.save(book);
     }
 }
