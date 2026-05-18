@@ -24,7 +24,7 @@ public class BookMstDto {
 
     //ISBNのルール
     @NotEmpty(message = "ISBNは必須です")
-    @Size(max = 50, message = "ISBNは50桁以内で入力してください")
+    @Size(max = 13, message = "ISBNは13桁以内で入力してください")
     @Pattern(regexp = "^[0-9]+$", message = "ISBNは半角数字で入力してください")
     private String isbn; 
     
